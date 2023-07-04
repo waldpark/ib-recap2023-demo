@@ -29,7 +29,7 @@ Then, login to your SAP BTP sub-account development space
 
 and deploy the MTA project
 
-        npm run build
+        npm run deploy
 
 Afterwards, retrieve the VCAP_SERVICES credentials and create the **default-env.json** using the command
 
