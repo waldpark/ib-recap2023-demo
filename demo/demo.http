@@ -1,0 +1,25 @@
+
+### Get all products from On-Premise system
+GET http://localhost:4004/on-premise/Products
+
+### Get all cities
+GET http://localhost:4004/world-data/WorldCities
+
+
+### Get all travelers
+GET http://localhost:4004/travel-overview/Travelers
+
+### Add new traveler
+POST http://localhost:4004/travel-overview/Travelers
+Content-Type: application/json
+
+{
+    "firstName": "Ingrid",
+    "lastName": "Schneider",
+    "email": "ingrid@schneider.de",
+    "nationality_ID": "ed496a5a-d4d2-4e91-afb6-dd5b527eaa38"
+
+}
+
+
+

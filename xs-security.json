@@ -1,0 +1,51 @@
+{
+    "xsappname": "ib-recap2023-demo",
+    "tenant-mode": "dedicated",
+    "description": "Security Profile of the IBsolution CAP Basic Application",
+    "scopes": [
+        {
+            "name": "uaa.user",
+            "description": "UAA"
+        },
+        {
+            "name": "$XSAPPNAME.AdminUser",
+            "description": "Administrator"
+        },
+        {
+            "name": "$XSAPPNAME.BasicUser",
+            "description": "Basic User"
+        }
+    ],
+    "role-templates": [
+        {
+            "name": "Token_Exchange",
+            "description": "UAA",
+            "scope-references": [
+                "uaa.user"
+            ]
+        },
+        {
+            "name": "AdminUser",
+            "description": "IBsolution CAP Admin User",
+            "scope-references": [
+                "$XSAPPNAME.AdminUser"
+            ]
+        },
+        {
+            "name": "BasicUser",
+            "description": "IBsolution CAP Basic User",
+            "scope-references": [
+                "$XSAPPNAME.BasicUser"
+            ]
+        }
+    ],
+    "oauth2-configuration": {
+        "credential-types": [
+            "binding-secret"
+        ],
+        "redirect-uris": [
+            "https://*.cfapps.eu10.hana.ondemand.com/**",
+            "http://localhost:4004/**"
+        ]
+    }
+}

@@ -1,0 +1,185 @@
+_schema-version: "3.1"
+ID: ib-recap2023-demo
+description: IBsolution CAP Demo Project
+version: 1.0.0
+modules:
+  - name: ib-recap2023-demo-srv
+    type: nodejs
+    path: gen/srv
+    properties:
+      BUILD_ID: manual-build
+      SOURCE_VERSION: unknown
+      VERSION: 1.0.0
+    requires:
+      - name: ib-recap2023-demo-db
+      - name: ib-recap2023-demo-em
+      - name: ib-recap2023-demo-em2
+      - name: ib-recap2023-demo-uaa
+      - name: ib-recap2023-demo-logging
+      - name: ib-recap2023-demo-connectivity
+      - name: ib-recap2023-demo-destination
+    provides:
+      - name: srv-api
+        properties:
+          srv-url: ${default-url}
+    parameters:
+      buildpack: nodejs_buildpack
+      disk-quota: 512M
+      memory: 256M
+    build-parameters:
+      builder: npm-ci
+  - name: ib-recap2023-demo-db-deployer
+    type: hdb
+    path: gen/db
+    requires:
+      - name: ib-recap2023-demo-db
+    parameters:
+      buildpack: nodejs_buildpack
+  - name: ib-recap2023-demo-destination-content
+    type: com.sap.application.content
+    requires:
+      - name: ib-recap2023-demo-destination
+        parameters:
+          content-target: true
+      - name: ib-recap2023-demo-html5-repo-host
+        parameters:
+          service-key:
+            name: ib-recap2023-demo-html5-repo-host-key
+      - name: ib-recap2023-demo-uaa
+        parameters:
+          service-key:
+            name: ib-recap2023-demo-uaa-key
+    parameters:
+      content:
+        instance:
+          destinations:
+            - Name: ib_recap2023_demo_html5_repo_host
+              ServiceInstanceName: ib-recap2023-demo-html5-app-host-service
+              ServiceKeyName: ib-recap2023-demo-html5-repo-host-key
+              sap.cloud.service: ib-recap2023-demo
+            - Authentication: OAuth2UserTokenExchange
+              Name: ib_recap2023_demo_uaa
+              ServiceInstanceName: ib-recap2023-demo-uaa
+              ServiceKeyName: ib-recap2023-demo-uaa-key
+              sap.cloud.service: ib-recap2023-demo
+          existing_destinations_policy: ignore
+    build-parameters:
+      no-source: true
+  - name: ib-recap2023-demo-app-content
+    type: com.sap.application.content
+    path: .
+    requires:
+      - name: ib-recap2023-demo-html5-repo-host
+        parameters:
+          content-target: true
+    build-parameters:
+      build-result: resources
+      requires:
+        - artifacts:
+            - ibrecap2023managetravelers.zip
+          name: ibrecap2023managetravelers
+          target-path: resources/
+        - artifacts:
+            - ibrecap2023maintainworldcities.zip
+          name: ibrecap2023maintainworldcities
+          target-path: resources/
+  - name: ibrecap2023managetravelers
+    type: html5
+    path: app/manage-travelers
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+  - name: ibrecap2023maintainworldcities
+    type: html5
+    path: app/maintain-world-cities
+    build-parameters:
+      build-result: dist
+      builder: custom
+      commands:
+        - npm install
+        - npm run build:cf
+      supported-platforms:
+        []
+resources:
+  - name: ib-recap2023-demo-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
+    properties:
+      hdi-service-name: ${service-name}
+  - name: ib-recap2023-demo-em
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./em-config.json
+      service: enterprise-messaging
+      service-plan: default
+  - name: ib-recap2023-demo-em2
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./em2-config.json
+      service: enterprise-messaging
+      service-plan: default
+  - name: ib-recap2023-demo-connectivity
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: connectivity
+      service-plan: lite
+  - name: ib-recap2023-demo-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      config:
+        HTML5Runtime_enabled: true
+        init_data:
+          instance:
+            destinations:
+              - Authentication: NoAuthentication
+                Name: ui5
+                ProxyType: Internet
+                Type: HTTP
+                URL: https://ui5.sap.com
+              - Authentication: NoAuthentication
+                Description: IBsolution - CAP Basic Demo Application
+                HTML5.DynamicDestination: true
+                HTML5.ForwardAuthToken: true
+                Name: ib-recap2023-demo-internal-api
+                ProxyType: Internet
+                Type: HTTP
+                URL: ~{srv-api/srv-url}
+            existing_destinations_policy: update
+        version: 1.0.0
+      service: destination
+      service-plan: lite
+    requires:
+      - name: srv-api
+  - name: ib-recap2023-demo-uaa
+    type: org.cloudfoundry.managed-service
+    parameters:
+      path: ./xs-security.json
+      service: xsuaa
+      service-plan: application
+  - name: ib-recap2023-demo-logging
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: lite
+  - name: ib-recap2023-demo-html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-name: ib-recap2023-demo-html5-app-host-service
+      service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx -p @sap/cds-dk cds build --production

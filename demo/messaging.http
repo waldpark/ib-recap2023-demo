@@ -1,0 +1,6 @@
+### Topic 1 on Channel 1 (amqp)
+GET http://localhost:4004/world-data/publishNumberOfWorldCities()
+
+### Topic 2 on Channel 2 (httprest)
+GET http://localhost:4004/travel-overview/publishNumberOfTravelers()
+

@@ -1,0 +1,10 @@
+ID;name;asciiName;latitude;longitude;country_ID;adminArea;capital;population;code;cityType_code
+3583302e-8fc4-4c0f-8e96-3305713e9454;Tokyo;Tokyo;35.6850;139.7514;af24258b-746b-42a1-a243-59811d85a231;Tōkyō;primary;35676000;1392685764;2
+39f6f473-f7fe-44fb-9176-582753cad157;New York;New York;40.6943;-73.9249;3aedf465-5b98-4389-9aea-20cc2880cad1;New York;null;19354922;1840034016;2
+b8b3c814-fa57-48b1-9074-08c5bb747311;Mexico City;Mexico City;19.4424;-99.1310;9089b3ed-5459-48da-b556-a2f2d82c830a;Ciudad de México;primary;19028000;1484247881;2
+6c6fff5e-15de-471e-b17d-73906a6f2b3e;Mumbai;Mumbai;19.0170;72.8570;f0e4c1fb-13ad-495b-bb36-d2a99628a34b;Mahārāshtra;admin;18978000;1356226629;2
+46161803-fa57-4581-8dd5-48f0ff570014;São Paulo;Sao Paulo;-23.5587;-46.6250;4f02f9c8-dad9-491e-a19f-a6f0b34008a0;São Paulo;admin;18845000;1076532519;2
+4ac2de85-db83-447a-a200-5bb9268e2253;Delhi;Delhi;28.6700;77.2300;f0e4c1fb-13ad-495b-bb36-d2a99628a34b;Delhi;admin;15926000;1356872604;2
+563e1d6b-0167-44bd-9481-a5004b9a69c7;Shanghai;Shanghai;31.2165;121.4365;51b841d3-218c-47bf-a47b-274966e0a9a0;Shanghai;admin;14987000;1156073548;2
+6776d043-4d31-4eeb-8432-0835939bcb86;Heidelberg;Heidelberg;49.4077;8.6908;ed496a5a-d4d2-4e91-afb6-dd5b527eaa38;Baden-Württemberg;admin;160355;1276041790;4
+604efbff-f0a7-48b4-a392-c4330340d60b;Mannheim;Mannheim;49.49671;8.47955;ed496a5a-d4d2-4e91-afb6-dd5b527eaa38;Baden-Württemberg;admin;309370;1234;3

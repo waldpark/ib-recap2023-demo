@@ -1,0 +1,5 @@
+ID;lastName;firstName;email;nationality_ID
+8b853e63-d8fd-4c3a-b14b-766dd3c3b713;Doe;John;john@doe.com;b4d313ef-5dc8-4062-856b-a87f801132f4
+d87009fe-f87e-4f6a-b3c5-e036a04f57e0;Doe;Jane;jane@doe.com;b4d313ef-5dc8-4062-856b-a87f801132f4
+32fde1fb-1f85-442c-9e41-e0df70efd5ec;Müller;Peter;peter@mueller.de;ed496a5a-d4d2-4e91-afb6-dd5b527eaa38
+4f38a01f-e400-4f04-834e-f1823bb60c82;Schneider;Ingrid;ingrid@schneider.de;ed496a5a-d4d2-4e91-afb6-dd5b527eaa38

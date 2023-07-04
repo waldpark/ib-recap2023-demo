@@ -1,0 +1,197 @@
+{
+    "_version": "1.49.0",
+    "sap.app": {
+        "id": "ib.recap2023.maintainworldcities",
+        "type": "application",
+        "i18n": "i18n/i18n.properties",
+        "applicationVersion": {
+            "version": "0.0.1"
+        },
+        "title": "{{appTitle}}",
+        "description": "{{appDescription}}",
+        "resources": "resources.json",
+        "sourceTemplate": {
+            "id": "@sap/generator-fiori:lrop",
+            "version": "1.9.4",
+            "toolsId": "420f97a7-f84d-4b00-b2b4-f37d6bbc6297"
+        },
+        "dataSources": {
+            "mainService": {
+                "uri": "/world-data/",
+                "type": "OData",
+                "settings": {
+                    "annotations": [],
+                    "localUri": "localService/metadata.xml",
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "crossNavigation": {
+            "inbounds": {
+                "ib-recap2023-maintainworldcities-inbound": {
+                    "signature": {
+                        "parameters": {},
+                        "additionalParameters": "allowed"
+                    },
+                    "semanticObject": "WorldCities",
+                    "action": "Maintain",
+                    "title": "{{flpTitle}}",
+                    "subTitle": "{{flpSubtitle}}",
+                    "icon": ""
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "icons": {
+            "icon": "",
+            "favIcon": "",
+            "phone": "",
+            "phone@2": "",
+            "tablet": "",
+            "tablet@2": ""
+        },
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "flexEnabled": true,
+        "dependencies": {
+            "minUI5Version": "1.114.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.ushell": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "settings": {
+                    "bundleName": "ib.recap2023.maintainworldcities.i18n.i18n"
+                }
+            },
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            },
+            "@i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            }
+        },
+        "resources": {
+            "css": []
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "WorldCitiesList",
+                    "target": "WorldCitiesList"
+                },
+                {
+                    "pattern": "WorldCities({key}):?query:",
+                    "name": "WorldCitiesObjectPage",
+                    "target": "WorldCitiesObjectPage"
+                },
+                {
+                    "pattern": "WorldCities({key})/partnerCountries({key2}):?query:",
+                    "name": "Cities2CountriesObjectPage",
+                    "target": "Cities2CountriesObjectPage"
+                }
+            ],
+            "targets": {
+                "WorldCitiesList": {
+                    "type": "Component",
+                    "id": "WorldCitiesList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "WorldCities",
+                            "variantManagement": "Page",
+                            "initialLoad": "Enabled",
+                            "navigation": {
+                                "WorldCities": {
+                                    "detail": {
+                                        "route": "WorldCitiesObjectPage"
+                                    }
+                                }
+                            },
+                            "content": {
+                                "header": {
+                                    "anchorBarVisible": false
+                                }
+                            }
+                        }
+                    }
+                },
+                "WorldCitiesObjectPage": {
+                    "type": "Component",
+                    "id": "WorldCitiesObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "editableHeaderContent": false,
+                            "entitySet": "WorldCities",
+                            "navigation": {
+                                "partnerCountries": {
+                                    "detail": {
+                                        "route": "Cities2CountriesObjectPage"
+                                    }
+                                }
+                            },
+                            "controlConfiguration": {
+                                "partnerCountries/@com.sap.vocabularies.UI.v1.LineItem": {
+                                    "tableSettings": {
+                                        "enableExport": "false"
+                                    }
+                                }
+                            },
+                            "allowDeepLinking": true
+                        }
+                    }
+                },
+                "Cities2CountriesObjectPage": {
+                    "type": "Component",
+                    "id": "Cities2CountriesObjectPage",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Cities2Countries",
+                            "navigation": {},
+                            "content": {
+                                "header": {
+                                    "anchorBarVisible": false
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    },
+    "sap.cloud": {
+        "public": true,
+        "service": "ib-recap2023-demo"
+    }
+}
