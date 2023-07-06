@@ -13,6 +13,7 @@ class WorldDataService extends cds.ApplicationService {
 
   async init(){
 
+    // Sending messages via Channel 1
     this.on ('publishNumberOfWorldCities', async () => {
       try {
         const numberOfWorldCities = await this._getNumberOfWorldCities()

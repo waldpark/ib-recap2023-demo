@@ -1,18 +1,4 @@
 # Getting Started
-
-Welcome to your new project.
-
-It contains these folders and files, following our recommended project layout:
-
-File or Folder | Purpose
----------|----------
-`app/` | content for UI frontends goes here
-`db/` | your domain models and data go here
-`srv/` | your service models and code go here
-`package.json` | project metadata and configuration
-`README.md` | this getting started guide
-
-
 ## Steps to make the app run locally
 
 In order to make this application run, you must first build it and deploy it to your SAP BTP cloud foundry space. Unfortunately, the SAP Enterprise Messaging service is not available anymore on the Trial account. You need a proper SAP BTP subscription or you need to sign up for a Pay-as-you-Go or CPEA account. You may run this application on a Trial account if you remove all the parts related to messagin (SAP Enterprise Messaging)
@@ -44,4 +30,20 @@ Before starting the app in your local development environment, run
 Now, you should be able to run
 
         cds serve
+
+
+## How to connect to the conectivity service on SAP BTP to access an OData Service of an On-Premise System
+
+    cf enable-ssh ib-recap2023-demo-srv
+    cf restart ib-recap2023-demo-srv
+    cf ssh ib-recap2023-demo-srv -L 20003:connectivityproxy.internal.cf.eu10.hana.ondemand.com:20003
+
+Then, inside the 'default-env.json', replace the line
+
+        "onpremise_proxy_host": "connectivityproxy.internal.cf.eu10.hana.ondemand.com",
+
+by the line
+
+        "onpremise_proxy_host": "localhost",
+
 

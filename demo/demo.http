@@ -1,4 +1,3 @@
-
 ### Get all products from On-Premise system
 GET http://localhost:4004/on-premise/Products
 

@@ -42,6 +42,9 @@ entity Travelers: cuid, managed {
     visitedCities : Composition of many VisitedCities on visitedCities.traveler = $self @title: '{i18n>visitedCity}';
 }
 
+@assert.unique : {
+    visitedCitiesCityCode: [city]
+}
 entity VisitedCities : cuid, managed {
     traveler : Association to one Travelers @title : '{i18n>traveler}';
     city     : Association to one WorldCities @title : '{i18n>country}';

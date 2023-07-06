@@ -15,10 +15,12 @@ class TravelOverviewService extends cds.ApplicationService {
 
     const messaging = await cds.connect.to('messaging')
 
+    // Consuming messages via Channel 1
     messaging.on('topic-object1/published', msg => {
       log.info('Consuming message from event topic-object1/published: ', msg)
     })
 
+    // Sending messages via Channel 2
     this.on ('publishNumberOfTravelers', async () => {
       try {
         const numberOfTravelers = await this._getNumberOfTravelers()
