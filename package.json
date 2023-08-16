@@ -55,27 +55,27 @@
             "alice": {
               "password": "alice",
               "roles": [
-                "AdminUser"
+                "DemoAdminUser"
               ]
             },
             "bob": {
               "password": "bob",
               "roles": [
-                "BasicUser"
+                "DemoBasicUser"
               ]
             }
           }
         }
       },
       "[production]": {
+        "auth": {
+          "restrict_all_services": false
+        },
         "db": {
           "kind": "hana-cloud"
         },
         "uaa": {
-          "auth": {
-            "kind": "xsuaa",
-            "restrict_all_services": false
-          }
+          "kind": "xsuaa"
         }
       },
       "API_PRODUCT_SRV": {

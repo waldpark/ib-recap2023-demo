@@ -8,11 +8,11 @@
             "description": "UAA"
         },
         {
-            "name": "$XSAPPNAME.AdminUser",
+            "name": "$XSAPPNAME.DemoAdminUser",
             "description": "Administrator"
         },
         {
-            "name": "$XSAPPNAME.BasicUser",
+            "name": "$XSAPPNAME.DemoBasicUser",
             "description": "Basic User"
         }
     ],
@@ -25,17 +25,17 @@
             ]
         },
         {
-            "name": "AdminUser",
+            "name": "DemoAdminUser",
             "description": "IBsolution CAP Admin User",
             "scope-references": [
-                "$XSAPPNAME.AdminUser"
+                "$XSAPPNAME.DemoAdminUser"
             ]
         },
         {
-            "name": "BasicUser",
+            "name": "DemoBasicUser",
             "description": "IBsolution CAP Basic User",
             "scope-references": [
-                "$XSAPPNAME.BasicUser"
+                "$XSAPPNAME.DemoBasicUser"
             ]
         }
     ],

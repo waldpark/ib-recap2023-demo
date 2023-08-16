@@ -2,7 +2,7 @@
 using { ib.recap2023.demo as db } from '../db/schema';
 
 @(path: '/travel-overview')
-service TravelOverviewService {
+service TravelOverviewService @(requires: 'DemoAdminUser') {
 
     @readonly entity Countries as projection on db.Countries;
     @odata.draft.enabled
